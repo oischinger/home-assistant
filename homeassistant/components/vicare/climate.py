@@ -147,15 +147,10 @@ class ViCareClimate(ClimateDevice):
             ] = self._api.getMonthSinceLastService()
             self._attributes["date_last_service"] = self._api.getLastServiceDate()
             self._attributes["error_history"] = self._api.getErrorHistory()
-            self._attributes["active_error"] = self._api.getActiveError()
-            self._attributes[
-                "circulationpump_active"
-            ] = self._api.getCirculationPumpActive()
 
             # Update the specific device attributes
             if self._heating_type == HeatingType.gas:
                 self._current_action = self._api.getBurnerActive()
-                self._attributes["burner_modulation"] = self._api.getBurnerModulation()
 
             elif self._heating_type == HeatingType.heatpump:
                 self._current_action = self._api.getCompressorActive()

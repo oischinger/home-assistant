@@ -8,6 +8,7 @@ from homeassistant.const import (
     CONF_NAME,
     CONF_UNIT_OF_MEASUREMENT,
     TEMP_CELSIUS,
+    UNIT_PERCENTAGE,
 )
 from homeassistant.helpers.entity import Entity
 
@@ -28,6 +29,7 @@ SENSOR_TYPE_TEMPERATURE = "temperature"
 SENSOR_OUTSIDE_TEMPERATURE = "outside_temperature"
 SENSOR_SUPPLY_TEMPERATURE = "supply_temperature"
 SENSOR_RETURN_TEMPERATURE = "return_temperature"
+SENSOR_BURNER_MODULATION = "burner_modulation"
 
 # gas sensors
 SENSOR_BOILER_TEMPERATURE = "boiler_temperature"
@@ -75,13 +77,20 @@ SENSOR_TYPES = {
         CONF_UNIT_OF_MEASUREMENT: TEMP_CELSIUS,
         CONF_GETTER: lambda api: api.getReturnTemperature(),
     },
+    SENSOR_BURNER_MODULATION: {
+        CONF_NAME: "Burner modulation",
+        CONF_ICON: "mdi:percent",
+        CONF_UNIT_OF_MEASUREMENT: UNIT_PERCENTAGE,
+        CONF_GETTER: lambda api: api.getBurnerModulation(),
+    },
 }
 
 SENSORS_GENERIC = [SENSOR_OUTSIDE_TEMPERATURE, SENSOR_SUPPLY_TEMPERATURE]
 
 SENSORS_BY_HEATINGTYPE = {
     HeatingType.gas: [
-        SENSOR_BOILER_TEMPERATURE
+        SENSOR_BOILER_TEMPERATURE,
+        SENSOR_BURNER_MODULATION,
     ],  # add additional gas sensors (consumption, etc.)
     HeatingType.heatpump: [
         SENSOR_COMPRESSOR_HOURS,
